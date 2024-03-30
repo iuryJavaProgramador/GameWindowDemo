@@ -1,0 +1,25 @@
+/**
+ * 
+ */
+package edu.sjcny.gpv1;
+import java.awt.Canvas;
+
+import edu.sjcny.gpv1.*;
+/**
+ * 
+ */
+public class GameWindowDemo extends Canvas implements Runnable { 
+   
+	public GameWindowDemo() {
+		Dimension dimension = new Dimension(640,480);
+		this.setPreferredSize(dimension);
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

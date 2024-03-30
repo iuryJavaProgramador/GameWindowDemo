@@ -1,0 +1,15 @@
+/**
+ * 
+ */
+package edu.sjcny.gpv1;
+
+/**
+ * 
+ */
+public class GameBoard {
+
+	public GameBoard(GameWindowDemo ga, String string) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

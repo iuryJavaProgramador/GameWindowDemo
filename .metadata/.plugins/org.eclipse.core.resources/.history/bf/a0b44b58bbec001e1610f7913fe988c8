@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package edu.sjcny.gpv1;
+/**
+ * 
+ */
+public interface Project1 extends GraphicsWrapper {
+	
+	
+
+}

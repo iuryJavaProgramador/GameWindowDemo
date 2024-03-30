@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+package edu.sjcny.gpv1;
+
+import javax.swing.GraphicsWrapper;
+
+/**
+ * 
+ */
+public interface Project1 extends GraphicsWrapper {
+
+}

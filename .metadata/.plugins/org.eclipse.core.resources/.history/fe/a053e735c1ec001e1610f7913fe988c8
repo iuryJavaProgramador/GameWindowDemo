@@ -1,0 +1,61 @@
+/**
+ * 
+ */
+package edu.sjcny.gpv1;
+import java.awt.Canvas;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+
+import edu.sjcny.gpv1.*;
+/**
+ * 
+ */
+public class GameWindowDemo extends Canvas implements Runnable { 
+   
+	public GameWindowDemo() {
+		Dimension dimension = new Dimension(640,480);
+		this.setPreferredSize(dimension);
+	}
+  
+	
+	public static void main(String[] args) {
+		GameWindowDemo gamewindowdemo = new GameWindowDemo();
+		JFrame jframe = new JFrame("The Game Window");
+		jframe.add(gamewindowdemo);
+		jframe.setLocationRelativeTo(null);
+		jframe.pack();
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		jframe.setVisible(true);
+	}
+	
+	
+	@Override
+	public void run() {
+		
+		while(true) {
+			update();
+			render();
+			try {
+				Thread.sleep(1000/60);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	private void update() {
+		
+		
+	}
+
+	private void render() {
+		
+		
+	}
+
+
+}

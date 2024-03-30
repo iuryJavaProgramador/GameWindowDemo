@@ -1,0 +1,78 @@
+	/**
+ * 
+ */
+package edu.sjcny.gpv1;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
+
+import edu.sjcny.gpv1.*;
+/**
+ * 
+ */
+public class GameWindowDemo extends Canvas implements Runnable { 
+   
+	public static final int WIDTH = 640,HEIGHT = 480;
+	
+	public GameWindowDemo() {
+		Dimension dimension = new Dimension(WIDTH,HEIGHT);
+		this.setPreferredSize(dimension);
+	}
+  
+	
+	public static void main(String[] args) {
+		GameWindowDemo gamewindowdemo = new GameWindowDemo();
+		JFrame jframe = new JFrame("The Game Window");
+		jframe.add(gamewindowdemo);
+		jframe.setLocationRelativeTo(null);
+		jframe.pack();
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		jframe.setVisible(true);
+		
+		new Thread(gamewindowdemo).start();
+	}
+	
+	
+	@Override
+	public void run() {
+		
+		while(true) {
+			update();
+			render();
+			try {
+				Thread.sleep(1000/60);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	private void update() {
+		
+		
+	}
+
+	private void render() {
+		BufferStrategy bs = this.getBufferStrategy();
+		
+		if(bs == null) {
+			this.createBufferStrategy(5);
+			return;
+		}						
+	
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.darkGray);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		bs.show();
+		
+	
+}
+}

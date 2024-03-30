@@ -1,0 +1,146 @@
+package edu.sjcny.gpv1;
+
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
+
+
+public class GameWindowDemo extends Canvas implements Runnable, MouseListener { 
+   
+	public static final int WIDTH = 640,HEIGHT = 480;
+	
+	public static int counter = 100;
+	
+	public static int pontuacao = 0;
+	
+	public static int mx, my;
+	public static boolean clicked = false;
+	
+	public Spawn spawn;
+	
+	public boolean gameOver = false;
+	
+	public GameWindowDemo() {
+		Dimension dimension = new Dimension(WIDTH,HEIGHT);
+		this.setPreferredSize(dimension);
+		this.addMouseListener(this);
+		
+		spawn = new Spawn();
+	}
+  
+	
+	public static void main(String[] args) {
+		GameWindowDemo gamewindowdemo = new GameWindowDemo();
+		JFrame jframe = new JFrame("The Game Window");
+		jframe.add(gamewindowdemo);
+		jframe.setLocationRelativeTo(null);
+		jframe.pack();
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		jframe.setVisible(true);
+		
+		new Thread(gamewindowdemo).start();
+	}
+	
+	
+	@Override
+	public void run() {
+		
+		while(true) {
+			update();
+			render();
+			try {
+				Thread.sleep(1000/60);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	private void update() {
+		if(gameOver == false) {
+		spawn.update();
+		if(counter<=0) {
+			counter = 100;
+		}
+		}
+	}
+
+	private void render() {
+		BufferStrategy bs = this.getBufferStrategy();
+		
+		if(bs == null) {
+			this.createBufferStrategy(5);
+			return;
+		}						
+	
+		/*
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH, HEIGHT);		
+		
+		g.setColor(Color.WHITE);		
+		g.setFont(new Font("Arial",Font.BOLD,22));		
+		*/
+		
+		
+				
+		
+		g.setColor(Color.green);
+		g.fillRect(GameWindowDemo.WIDTH/2 - 100 - 70, 20, counter*3, 20);
+		g.setColor(Color.white);
+		g.drawRect(GameWindowDemo.WIDTH/2 - 100 - 70, 20, 300, 20);
+		
+		spawn.render(g);
+		
+		bs.show();
+		
+	
+      }
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		clicked = true;
+		mx = e.getX();
+		my = e.getY();
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+}

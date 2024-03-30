@@ -1,0 +1,73 @@
+package edu.sjcny.gpv1;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Spawn {
+	
+	public int timer = 0;
+	
+	public List<RectangleObj> rectangles = new ArrayList<RectangleObj>();
+	
+	public List<Particle> particles = new ArrayList<Particle>();
+	
+	public void update() {
+		timer++;
+		if(timer % 20 == 0) {
+			rectangles.add(new RectangleObj(0,new Random().nextInt(480-40),40,40));
+		}
+		
+	    for(int i = 0; i < rectangles.size(); i++) {
+	    	
+	    	RectangleObj current = rectangles.get(i);
+	    	
+	    	rectangles.get(i).update();
+	    	
+	    	
+	    	if(current.x > GameWindowDemo.WIDTH) {
+	    		rectangles.remove(current);
+	    		GameWindowDemo.counter--;
+	    		
+	    	}
+
+            if(GameWindowDemo.clicked) {
+            	
+            	if(GameWindowDemo.mx >= current.x && GameWindowDemo.mx < current.x + current.width) {
+            		
+            		if(GameWindowDemo.my >= current.y && GameWindowDemo.my < current.y + current.height) {            			
+            			rectangles.remove(current);
+            			GameWindowDemo.pontuacao++;
+            			GameWindowDemo.clicked = false;
+            			
+            			for(int n = 0; n < 50; n++) {
+            				particles.add(new Particles(current.x, current.y,8,8, current.color));
+            			}
+            		}
+            	}
+            }	    
+	    }    	
+	
+	    for(int i = 0; i < particles.size(); i++) {
+	    	particles.get(i).update();	    	
+	    }	
+	}
+
+	public void render(Graphics g) {
+		
+		for(int i = 0; i < rectangles.size(); i++) {
+			RectangleObj current = rectangles.get(i);
+		    Graphics2D g2 = (Graphics2D) g;
+		    g2.rotate(Math.toRadians(current.rotation),current.x+current.width/2,current.y+current.height/2);
+			g2.setColor(current.color);
+		    g2.fillRect(current.x, current.y, current.width, current.height);
+		    g2.rotate(Math.toRadians(-current.rotation),current.x+current.width/2,current.y+current.height/2);
+		}
+		
+		for(int i = 0; i < particles.size(); i++) {
+	    	particles.get(i).render(g);	    	
+	    }
+	}
+}
